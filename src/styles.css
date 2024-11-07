@@ -1,0 +1,152 @@
+/* styles.css */
+
+/* Goal Input Form */
+.goal-input-form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.goal-input-form h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.goal-input-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.goal-input-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.goal-input-form button:hover {
+  background-color: #2980b9;
+}
+
+/* Goal List */
+.goal-list {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.goal-list h2 {
+  color: #2c3e50;
+}
+
+.goal-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.goal-list ul li {
+  margin: 10px 0;
+}
+
+/* Goal Chart */
+.goal-chart {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.goal-chart canvas {
+  width: 100% !important;
+  height: 300px !important;
+}
+
+/* Financial Advice */
+.financial-advice {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.financial-advice h2 {
+  color: #2c3e50;
+}
+
+.financial-advice p {
+  font-size: 16px;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  background-color: #2c3e50;
+  color: white;
+  width: 250px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100vh;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.sidebar ul li:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .goal-input-form,
+  .goal-list,
+  .goal-chart,
+  .financial-advice {
+    max-width: 100%;
+  }
+
+  .sidebar {
+    width: 200px;
+    position: absolute; /* Sidebar on top of content */
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .right-content {
+    gap: 15px;
+  }
+}

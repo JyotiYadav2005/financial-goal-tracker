@@ -1,29 +1,50 @@
-.App {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
+/* index.css */
+
+/* Global reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-form {
-  display: flex;
-  gap: 10px;
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Basic text styling */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-bottom: 20px;
 }
 
-input {
-  padding: 8px;
+input,
+button {
   font-size: 16px;
 }
 
-button {
-  padding: 8px 16px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  cursor: pointer;
+input,
+select,
+textarea {
+  outline: none;
+  border-radius: 5px;
+  padding: 10px;
 }
 
-button:hover {
-  background-color: #45a049;
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Body padding */
+body {
+  padding: 0;
+  margin: 0;
 }
