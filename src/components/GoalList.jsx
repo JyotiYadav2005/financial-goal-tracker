@@ -1,21 +1,24 @@
 import React from "react";
 import GoalChart from "./GoalChart";
+import { formatCurrency } from "../utils";
 
 function GoalList({ goals }) {
-  console.log("Rendering GoalList with goals:", goals); // Debugging log
-
   if (goals.length === 0) {
     return <p>No goals added yet.</p>;
   }
 
   return (
-    <div>
+    <div className="goal-list">
       {goals.map((goal, index) => (
-        <div key={index} style={{ marginBottom: "2rem" }}>
+        <div key={index} className="goal-item">
           <h3>{goal.goal}</h3>
-          <p>Target Amount: ${goal.amount}</p>
+          <p>Target Amount: {formatCurrency(goal.amount)}</p>
           <p>Time Frame: {goal.timeFrame} years</p>
-          <GoalChart key={index} goal={goal} />
+          <p>
+            Monthly Contribution: ₹
+            {(goal.amount / (goal.timeFrame * 12)).toFixed(2)}
+          </p>
+          <GoalChart goal={goal} />
         </div>
       ))}
     </div>
