@@ -1,46 +1,52 @@
 import React from "react";
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
 } from "chart.js";
 
+// Register chart elements
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
 );
 
-function GoalChart({ goals, income, expenses }) {
+const GoalChart = ({ goals }) => {
+  const totalAmount = goals.reduce(
+    (sum, goal) => sum + parseInt(goal.amount || 0),
+    0
+  );
+  const totalDuration = goals.reduce(
+    (sum, goal) => sum + parseInt(goal.duration || 0),
+    0
+  );
+
   const data = {
-    labels: goals.map((goal) => goal.goal),
+    labels: ["Total Amount", "Total Duration"],
     datasets: [
       {
-        label: "Goal Progress",
-        data: goals.map((goal) => (goal.savedAmount / goal.amount) * 100), // % Progress
-        fill: false,
-        borderColor: "rgb(75, 192, 192)",
-        tension: 0.1,
+        label: "Goals Progress",
+        data: [totalAmount, totalDuration],
+        backgroundColor: "rgba(75, 192, 192, 0.6)",
       },
     ],
   };
 
   return (
     <div className="goal-chart">
-      <h2>Your Goals Progress</h2>
-      <Line data={data} />
+      <h3>Goal Progress</h3>
+      <Bar data={data} options={{ responsive: true }} />
     </div>
   );
-}
+};
 
 export default GoalChart;

@@ -1,23 +1,24 @@
 import React from "react";
 
-function GoalList({ goals }) {
+const GoalList = ({ goals }) => {
   return (
     <div className="goal-list">
-      <h2>Your Financial Goals</h2>
+      <h3>Your Financial Goals</h3>
       {goals.length === 0 ? (
-        <p>No goals added yet. Start by adding your financial goals.</p>
+        <p>No goals added yet.</p>
       ) : (
         <ul>
           {goals.map((goal, index) => (
             <li key={index}>
-              <strong>{goal.goal}</strong> - ₹{goal.amount} in {goal.timeFrame}{" "}
-              years
+              <h4>{goal.name}</h4>
+              <p>Amount: ₹{goal.amount}</p>
+              <p>Duration: {goal.duration} months</p>
             </li>
           ))}
         </ul>
       )}
     </div>
   );
-}
+};
 
 export default GoalList;
