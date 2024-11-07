@@ -20,26 +20,41 @@ ChartJS.register(
   Legend
 );
 
-function GoalChart({ goal }) {
-  // Monthly Contribution
-  const monthlyContribution = goal.amount / (goal.timeFrame * 12);
+function GoalChart({ goals, totalGoalAmount, totalSavedAmount }) {
+  // Calculate the overall monthly contribution needed to meet all goals
+  const totalMonthlyContribution =
+    totalGoalAmount / goals.reduce((acc, goal) => acc + goal.timeFrame * 12, 0);
 
-  // Create the monthly data for the bar chart
-  const monthlyData = Array.from(
-    { length: goal.timeFrame * 12 },
-    (_, i) => monthlyContribution * (i + 1)
+  // Calculate the monthly progress based on user savings
+  const monthlyData = goals
+    .map((goal) => {
+      const totalMonths = goal.timeFrame * 12;
+      const goalMonthlyContribution = goal.amount / totalMonths;
+      return Array.from(
+        { length: totalMonths },
+        (_, i) => goalMonthlyContribution * (i + 1)
+      );
+    })
+    .flat(); // Combine all monthly data into a single array
+
+  const totalMonthlyProgress = Array.from(
+    { length: monthlyData.length },
+    (_, i) => {
+      const savedProgress = totalSavedAmount / (totalGoalAmount || 1);
+      return Math.min(monthlyData[i] * savedProgress, monthlyData[i]);
+    }
   );
 
   // Data for the bar chart
   const data = {
     labels: Array.from(
-      { length: goal.timeFrame * 12 },
+      { length: monthlyData.length },
       (_, i) => `Month ${i + 1}`
     ),
     datasets: [
       {
-        label: "Progress (₹)",
-        data: monthlyData,
+        label: "Combined Progress (₹)",
+        data: totalMonthlyProgress,
         backgroundColor: "rgba(75, 192, 192, 0.6)", // Light green
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
@@ -48,16 +63,18 @@ function GoalChart({ goal }) {
   };
 
   // Calculate total progress
-  const totalSaved = monthlyData[monthlyData.length - 1];
-  const progressPercentage = Math.min((totalSaved / goal.amount) * 100, 100);
+  const progressPercentage = Math.min(
+    (totalSavedAmount / totalGoalAmount) * 100,
+    100
+  );
 
   return (
     <div className="goal-chart">
-      <h3>Goal Visualization</h3>
+      <h3>Combined Goal Visualization</h3>
 
       {/* Progress Bar */}
       <div style={{ marginBottom: "20px" }}>
-        <p>Progress: {Math.round(progressPercentage)}%</p>
+        <p>Overall Progress: {Math.round(progressPercentage)}%</p>
         <div
           style={{
             width: "100%",
@@ -82,20 +99,6 @@ function GoalChart({ goal }) {
         data={data}
         options={{ responsive: true, scales: { x: { beginAtZero: true } } }}
       />
-
-      {/* Milestones (optional) */}
-      <div style={{ marginTop: "20px" }}>
-        <p>
-          <strong>Milestone Tracker:</strong>
-        </p>
-        <ul>
-          <li>{`50% Target: ₹${(goal.amount / 2).toLocaleString("en-IN")}`}</li>
-          <li>{`75% Target: ₹${(goal.amount * 0.75).toLocaleString(
-            "en-IN"
-          )}`}</li>
-          <li>{`100% Target: ₹${goal.amount.toLocaleString("en-IN")}`}</li>
-        </ul>
-      </div>
     </div>
   );
 }

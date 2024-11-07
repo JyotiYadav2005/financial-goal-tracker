@@ -1,75 +1,71 @@
 import React, { useState } from "react";
-import { formatCurrency } from "../utils";
 
-function GoalInputForm({ onAddGoal }) {
-  const [goal, setGoal] = useState("");
-  const [amount, setAmount] = useState("");
+function GoalInputForm({ onGoalSubmit }) {
+  const [goalName, setGoalName] = useState("");
+  const [goalAmount, setGoalAmount] = useState("");
   const [timeFrame, setTimeFrame] = useState("");
+  const [savedAmount, setSavedAmount] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newGoal = {
-      goal,
-      amount: parseFloat(amount),
-      timeFrame: parseInt(timeFrame, 10),
-    };
-    onAddGoal(newGoal);
-    setGoal("");
-    setAmount("");
-    setTimeFrame("");
-  };
-
-  const calculateMonthlyContribution = () => {
-    if (amount && timeFrame) {
-      return (amount / (timeFrame * 12)).toFixed(2); // Calculate monthly savings
+    if (goalName && goalAmount && timeFrame && savedAmount) {
+      onGoalSubmit({
+        goal: goalName,
+        amount: parseFloat(goalAmount),
+        timeFrame: parseInt(timeFrame),
+        savedAmount: parseFloat(savedAmount),
+      });
+      setGoalName("");
+      setGoalAmount("");
+      setTimeFrame("");
+      setSavedAmount("");
+    } else {
+      alert("Please fill out all fields.");
     }
-    return "0.00";
   };
 
   return (
     <div className="goal-input-form">
-      <h2>Add a Financial Goal</h2>
+      <h2>Add Your Financial Goal</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Goal Name:</label>
+          <label>Goal Name</label>
           <input
             type="text"
-            value={goal}
-            onChange={(e) => setGoal(e.target.value)}
-            placeholder="Enter your financial goal"
-            required
+            value={goalName}
+            onChange={(e) => setGoalName(e.target.value)}
+            placeholder="e.g., Buy a Car"
           />
         </div>
         <div>
-          <label>Target Amount (₹):</label>
+          <label>Goal Amount (₹)</label>
           <input
             type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="Enter amount"
-            required
+            value={goalAmount}
+            onChange={(e) => setGoalAmount(e.target.value)}
+            placeholder="e.g., 500000"
           />
         </div>
         <div>
-          <label>Time Frame (in years):</label>
+          <label>Time Frame (years)</label>
           <input
             type="number"
             value={timeFrame}
             onChange={(e) => setTimeFrame(e.target.value)}
-            placeholder="Enter time frame"
-            required
+            placeholder="e.g., 5"
+          />
+        </div>
+        <div>
+          <label>Current Savings (₹)</label>
+          <input
+            type="number"
+            value={savedAmount}
+            onChange={(e) => setSavedAmount(e.target.value)}
+            placeholder="e.g., 50000"
           />
         </div>
         <button type="submit">Add Goal</button>
       </form>
-
-      {amount && timeFrame && (
-        <div>
-          <p>
-            Estimated Monthly Contribution: ₹{calculateMonthlyContribution()}
-          </p>
-        </div>
-      )}
     </div>
   );
 }

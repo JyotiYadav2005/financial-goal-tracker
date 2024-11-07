@@ -43,32 +43,38 @@ button {
 button:hover {
   background-color: #45a049;
 }
-
 .goal-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 20px;
+  margin: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.goal-item {
-  background-color: #fff;
+.goal-input-form {
+  background-color: #f9f9f9;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.goal-item h3 {
-  color: #333;
+.goal-input-form input,
+.goal-input-form button {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.goal-item p {
-  color: #555;
+.goal-input-form button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
-.goal-item .chart {
-  margin-top: 20px;
+.goal-input-form button:hover {
+  background-color: #45a049;
 }
+
 .goal-chart {
   background-color: #fff;
   padding: 20px;
@@ -77,22 +83,5 @@ button:hover {
 }
 
 .goal-chart h3 {
-  color: #333;
-}
-
-.goal-chart p {
-  color: #555;
-}
-
-.goal-chart .progress-bar {
-  margin: 10px 0;
-}
-
-.goal-chart ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.goal-chart ul li {
-  color: #333;
+  margin-top: 0;
 }

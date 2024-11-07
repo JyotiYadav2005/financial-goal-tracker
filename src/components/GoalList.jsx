@@ -7,20 +7,30 @@ function GoalList({ goals }) {
     return <p>No goals added yet.</p>;
   }
 
+  // Aggregate all goals' data
+  const totalGoalAmount = goals.reduce((acc, goal) => acc + goal.amount, 0);
+  const totalSavedAmount = goals.reduce(
+    (acc, goal) => acc + goal.savedAmount,
+    0
+  );
+
   return (
     <div className="goal-list">
-      {goals.map((goal, index) => (
-        <div key={index} className="goal-item">
-          <h3>{goal.goal}</h3>
-          <p>Target Amount: {formatCurrency(goal.amount)}</p>
-          <p>Time Frame: {goal.timeFrame} years</p>
-          <p>
-            Monthly Contribution: ₹
-            {(goal.amount / (goal.timeFrame * 12)).toFixed(2)}
-          </p>
-          <GoalChart goal={goal} />
-        </div>
-      ))}
+      <h2>All Goals Combined</h2>
+      <div>
+        <p>
+          <strong>Total Goal Amount: </strong> {formatCurrency(totalGoalAmount)}
+        </p>
+        <p>
+          <strong>Total Saved Amount: </strong>{" "}
+          {formatCurrency(totalSavedAmount)}
+        </p>
+        <GoalChart
+          goals={goals}
+          totalGoalAmount={totalGoalAmount}
+          totalSavedAmount={totalSavedAmount}
+        />
+      </div>
     </div>
   );
 }
